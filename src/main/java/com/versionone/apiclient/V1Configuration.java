@@ -1,10 +1,17 @@
 /*(c) Copyright 2008, VersionOne, Inc. All rights reserved. (c)*/
 package com.versionone.apiclient;
 
+import java.io.Reader;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 
-import javax.xml.xpath.*;
-import java.io.Reader;
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 /**
  * Class to access to VersionOne server configuration
@@ -86,7 +93,7 @@ public class V1Configuration implements IV1Configuration {
 
     private String getSetting(String keyToFind) throws ConnectionException, APIException {
         try {
-            XPathFactory factory = XPathFactory.newInstance();
+            XPathFactory factory = XPathFactoryInstanceHolder.get();
             XPath xpath = factory.newXPath();
 
             XPathExpression expr = xpath.compile("//Configuration/Setting[@key=\"" + keyToFind + "\"]/@value");

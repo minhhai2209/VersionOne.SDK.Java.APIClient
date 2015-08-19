@@ -2,10 +2,10 @@ package com.versionone.apiclient.unit.tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +15,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -28,6 +27,7 @@ import org.xml.sax.SAXException;
 
 import com.versionone.apiclient.ConnectionException;
 import com.versionone.apiclient.IAPIConnector;
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 public class ResponseConnector implements IAPIConnector {
 
@@ -57,7 +57,7 @@ public class ResponseConnector implements IAPIConnector {
 
 			String[] parts = keys.split(";");
 
-			XPath xpath = XPathFactory.newInstance().newXPath();
+			XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
 			for(String part : parts)
 			{
 				NodeList nodes = (NodeList)xpath.evaluate("Test[@name='" + part + "']", doc.getDocumentElement(), XPathConstants.NODESET);

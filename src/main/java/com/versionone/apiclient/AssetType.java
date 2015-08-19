@@ -4,9 +4,10 @@ import java.util.Map;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Element;
+
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 /**
  * Represents information about an Assets type
@@ -46,7 +47,7 @@ class AssetType implements IAssetType {
 		_displayname = element.getAttribute("displayname");
 		_token = element.getAttribute("token");
 
-		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
 		Element baseelement = (Element)xpath.evaluate("Base", element, XPathConstants.NODE);
 		if (baseelement != null)
 			_basetoken = baseelement.getAttribute("nameref");

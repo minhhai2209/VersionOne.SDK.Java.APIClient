@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 /**
  * Concrete class for obtaining metadata from the VersionOne server
@@ -148,7 +149,7 @@ public class MetaModel implements IMetaModel {
 		AssetType assetType = new AssetType(this, doc.getDocumentElement(), _map);
 		saveAssetType(assetType);
 
-		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
 		NodeList attribnodes = (NodeList)xpath.evaluate("AttributeDefinition", doc.getDocumentElement(), XPathConstants.NODESET);	
 		for (int attrIndex = 0; attrIndex < attribnodes.getLength(); ++attrIndex)
 			saveAttributeDefinition(new AttributeDefinition(this, (Element) attribnodes.item(attrIndex)));
@@ -178,7 +179,7 @@ public class MetaModel implements IMetaModel {
 		try {
 			Document doc = this.createDocument("");
 
-			XPath xpath = XPathFactory.newInstance().newXPath();
+			XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
 			NodeList assetnodes = (NodeList)xpath.evaluate("//AssetType", doc.getDocumentElement(), XPathConstants.NODESET);
 			for (int assetIndex = 0; assetIndex < assetnodes.getLength(); ++assetIndex) {
 				Element element = (Element) assetnodes.item(assetIndex);

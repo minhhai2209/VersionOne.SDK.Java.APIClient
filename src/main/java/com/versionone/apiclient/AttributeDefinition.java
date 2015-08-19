@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import com.versionone.DB;
 import com.versionone.Duration;
 import com.versionone.Oid;
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 /**
  * Represents the definition of an Attribute
@@ -51,7 +52,7 @@ class AttributeDefinition implements IAttributeDefinition {
 		_isrequired = new DB.Bit(element.getAttribute("isrequired")).booleanValue();
 		_ismultivalue = new DB.Bit(element.getAttribute("ismultivalue")).booleanValue();
 
-		XPath xpath = XPathFactory.newInstance().newXPath();
+		XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
 		Element baseelement = (Element)xpath.evaluate("Base", element, XPathConstants.NODE);
 		if (baseelement != null)
 			_basetoken = baseelement.getAttribute("tokenref");

@@ -1,20 +1,26 @@
 package com.versionone.apiclient;
 
-import com.versionone.DB;
-import com.versionone.Oid;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import com.versionone.DB;
+import com.versionone.Oid;
+import com.versionone.util.XPathFactoryInstanceHolder;
 
 /**
  * Wraps the services available in the VersionOne API
@@ -381,7 +387,7 @@ public class Services implements IServices {
 
         int total = Integer.parseInt(element.getAttribute("total"));
 
-        XPath xpath = XPathFactory.newInstance().newXPath();
+        XPath xpath = XPathFactoryInstanceHolder.get().newXPath();
         NodeList nodes;
         try {
             nodes = (NodeList) xpath.evaluate("Asset", element, XPathConstants.NODESET);
